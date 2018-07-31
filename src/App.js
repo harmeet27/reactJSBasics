@@ -14,6 +14,7 @@ class App extends Component {
    
   }
 
+
   switchName = (newName) =>
   {
    console.log('hi harmeet'); 
@@ -45,10 +46,19 @@ class App extends Component {
   }
 
   render() {
+
+   const style ={
+     backgroundColor : 'grey',
+     font : 'inherit',
+     border : '5px solid black',
+     padding : '8px'
+
+   };
+
     return (
       <div className="App">
         <h1>My react app </h1>
-        <button onClick={() => this.switchName('Faran')}>Change name</button>
+        <button style={style} onClick={() => this.switchName('Faran')}>Change name</button>
         <Person name={this.state.persons[0].name} age={this.state.persons[0].age} 
         click={this.switchName.bind(this,'Ankita')} nameChange={this.nameChange}>children are</Person>
         <Person name={this.state.persons[1].name} age={this.state.persons[1].age} >anu is</Person>
