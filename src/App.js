@@ -5,10 +5,10 @@ import Person from './Person/Person.js'
 class App extends Component {
   state = {
     persons : [
-      {name:'harmeet', age:'25'
+      {id:'1', name:'harmeet', age:'25'
       },
       {
-        name:'anu', age:'18'
+        id:'2' , name:'anu', age:'18'
       }
     ],
 
@@ -33,16 +33,29 @@ class App extends Component {
    )
   }
 
-  nameChange = (event) =>
+  nameChange = (event , id) =>
   {
+    const personsId = this.state.persons.findIndex( p => {
+      return p.id === id ;
+        });
+    
+    const person = { ...this.state.persons[personsId] };
+
+    //const person = Object.assign({} , this.state.persons[personsId]);
+
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personsId] = person;
+
     this.setState({
-      persons : [
-        {name: event.target.value, age:'25'
+      /*persons : [ 
+        {id:'1' , name: event.target.value, age:'25'
         },
         {
-          name:'anu', age:'10'
+          id:'2' , name:'anu', age:'10'
         }
-      ]
+      ]*/
+      persons : persons
     }
      )
 
@@ -56,7 +69,7 @@ class App extends Component {
 
   deletPerson = (index) =>
   {
-    const persons = this.state.persons;
+    const persons = [...this.state.persons];
     persons.splice(index , 1);
     this.setState({persons : persons});
   }
@@ -80,7 +93,10 @@ class App extends Component {
        
        <div>
          {this.state.persons.map((personArray , index ) => {
-           return <Person name={personArray.name} age={personArray.age} click={() => this.deletPerson(index)}/>
+           return <Person name={personArray.name} 
+           age={personArray.age} click={() => this.deletPerson(index)} 
+           key={personArray.id}
+           nameChange={(event) => this.nameChange(event , personArray.id)}/>
          })}
         {/*  <Person name={this.state.persons[0].name} age={this.state.persons[0].age} 
            click={this.switchName.bind(this,'Ankita')} nameChange={this.nameChange}>children are</Person>
