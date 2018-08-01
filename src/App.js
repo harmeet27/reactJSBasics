@@ -54,6 +54,13 @@ class App extends Component {
 
   }
 
+  deletPerson = (index) =>
+  {
+    const persons = this.state.persons;
+    persons.splice(index , 1);
+    this.setState({persons : persons});
+  }
+
   render() {
 
    const style ={
@@ -70,10 +77,14 @@ class App extends Component {
    if(this.state.defaultShow)
    {
      persons = (
+       
        <div>
-          <Person name={this.state.persons[0].name} age={this.state.persons[0].age} 
+         {this.state.persons.map((personArray , index ) => {
+           return <Person name={personArray.name} age={personArray.age} click={() => this.deletPerson(index)}/>
+         })}
+        {/*  <Person name={this.state.persons[0].name} age={this.state.persons[0].age} 
            click={this.switchName.bind(this,'Ankita')} nameChange={this.nameChange}>children are</Person>
-          <Person name={this.state.persons[1].name} age={this.state.persons[1].age} >anu is</Person>
+          <Person name={this.state.persons[1].name} age={this.state.persons[1].age} >anu is</Person> */}
       </div>
      );
 
