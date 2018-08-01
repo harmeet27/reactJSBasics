@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
-import Person from './Person/Person.js'
-import Radium ,{ StyleRoot }from 'radium';
+import Appclasses from './App.css';
+//import Person from '../components/Persons/Person/Person.js'
+import Persons from '../components/Persons/Persons'
+//import Radium ,{ StyleRoot }from 'radium';
+//import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 
 class App extends Component {
   state = {
@@ -77,7 +79,7 @@ class App extends Component {
 
   render() {
 
-   const style ={
+   /*const style ={
      backgroundColor : 'green',
      color:'white',
      font : 'inherit',
@@ -89,57 +91,64 @@ class App extends Component {
        color:'black'
      }
 
-   };
+   };*/
 
    let persons = null;
+   let btnClass = '';
 
    if(this.state.defaultShow)
    {
-     style.backgroundColor='red';
-     style[':hover']=
-     {
-       backgroundColor : 'salmon',
-       color :'black'
-     }
+     //style.backgroundColor='red';
+     //style[':hover']=
+     //{
+      // backgroundColor : 'salmon',
+       //color :'black'
+     //}
      persons = (
+       <Persons persons={this.state.persons} 
+       deletPerson={this.deletPerson} 
+       nameChange = {this.nameChange}/>
        
-       <div>
-         {this.state.persons.map((personArray , index ) => {
-           return <Person name={personArray.name} 
-           age={personArray.age} click={() => this.deletPerson(index)} 
-           key={personArray.id}
-           nameChange={(event) => this.nameChange(event , personArray.id)}/>
-         })}
-        {/*  <Person name={this.state.persons[0].name} age={this.state.persons[0].age} 
-           click={this.switchName.bind(this,'Ankita')} nameChange={this.nameChange}>children are</Person>
-          <Person name={this.state.persons[1].name} age={this.state.persons[1].age} >anu is</Person> */}
-      </div>
+       //<div>
+         //{this.state.persons.map((personArray , index ) => {
+           //return <Person name={personArray.name} 
+           //age={personArray.age} click={() => this.deletPerson(index)} 
+           
+           //nameChange={(event) => this.nameChange(event , personArray.id)} key={personArray.id}/>
+        // })}
+        //{/*  <Person name={this.state.persons[0].name} age={this.state.persons[0].age} 
+        //   click={this.switchName.bind(this,'Ankita')} nameChange={this.nameChange}>children are</Person>
+          //<Person name={this.state.persons[1].name} age={this.state.persons[1].age} >anu is</Person> */}
+      //</div>
      );
+
+     btnClass = Appclasses.Red;
 
    }
 
    let classes =[]
    if(this.state.persons.length <=2)
    {
-     classes.push('red');
+     classes.push(Appclasses.red);
    }
    if(this.state.persons.length <=1)
    {
-     classes.push('bold');
+     classes.push(Appclasses.bold);
    }
 
     return (
-      <StyleRoot>
-      <div className="App">
+      
+      <div className={Appclasses.App}>
         <h1>My react app </h1>
         <p className={classes.join(' ')}>This is working</p>
         {/* <button style={style} onClick={() => this.switchName('Faran')}>Change name</button> */}
-        <button style={style} onClick={this.toggleName}>Change name</button> 
+        <button className={btnClass} onClick={this.toggleName}>Change name</button> 
         {persons}
       </div>
-      </StyleRoot>
+
     );
   }
 }
 
-export default Radium(App);
+//export default Radium(App);
+export default App;
