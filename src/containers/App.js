@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Appclasses from './App.css';
 //import Person from '../components/Persons/Person/Person.js'
 import Persons from '../components/Persons/Persons'
+import Cockpit from '../components/Cockpit/Cockpit'
 //import Radium ,{ StyleRoot }from 'radium';
 //import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 
@@ -94,7 +95,7 @@ class App extends Component {
    };*/
 
    let persons = null;
-   let btnClass = '';
+ 
 
    if(this.state.defaultShow)
    {
@@ -122,27 +123,17 @@ class App extends Component {
       //</div>
      );
 
-     btnClass = Appclasses.Red;
+ 
 
    }
 
-   let classes =[]
-   if(this.state.persons.length <=2)
-   {
-     classes.push(Appclasses.red);
-   }
-   if(this.state.persons.length <=1)
-   {
-     classes.push(Appclasses.bold);
-   }
+   
 
     return (
       
       <div className={Appclasses.App}>
-        <h1>My react app </h1>
-        <p className={classes.join(' ')}>This is working</p>
-        {/* <button style={style} onClick={() => this.switchName('Faran')}>Change name</button> */}
-        <button className={btnClass} onClick={this.toggleName}>Change name</button> 
+        <Cockpit persons={this.state.persons} showPerson = {this.state.defaultShow} 
+        toggleName = {this.toggleName}/>
         {persons}
       </div>
 
